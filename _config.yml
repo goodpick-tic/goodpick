@@ -1,0 +1,54 @@
+title: GOODPICK
+description: "良い声を、届ける。日用品・ガジェット・アウトドアの本音レビューメディア"
+url: ""
+baseurl: "/goodpick"
+
+author:
+  name: 村田大嘉
+  bio: "Lifestyle & Gear Editor. 使ってわかることだけを書く。"
+
+# ビルド設定
+markdown: kramdown
+highlighter: rouge
+permalink: /articles/:year/:month/:day/:title/
+
+# プラグイン（GitHub Pages対応）
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# ページネーション（1ページあたりの記事数）
+paginate: 9
+paginate_path: "/page/:num/"
+
+# カテゴリ設定
+categories:
+  gadget:
+    label: ガジェット
+    color: "#3a7bd5"
+  outdoor:
+    label: アウトドア
+    color: "#4caf50"
+  daily:
+    label: 日用品・生活雑貨
+    color: "#9c6fb5"
+  wear:
+    label: ウェア・アパレル
+    color: "#e67e22"
+  kitchen:
+    label: キッチン
+    color: "#e84b3a"
+  travel:
+    label: トラベル
+    color: "#00bcd4"
+
+# 除外ファイル
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - SETUP.md
+  - node_modules
+  - .git
