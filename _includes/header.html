@@ -1,0 +1,38 @@
+<header class="site-header">
+  <div class="header-top">
+    <a href="{{ '/' | relative_url }}" class="site-logo">
+      <span class="logo-text">GOOD<span>PICK</span></span>
+      <span class="logo-tagline">良い声を、届ける。 — Lifestyle &amp; Gear Review</span>
+    </a>
+    <div class="header-actions">
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/categories/' | relative_url }}">Categories</a>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">ALL</a>
+    <a href="{{ '/category/gadget/' | relative_url }}" class="nav-link {% if page.category == 'gadget' %}active{% endif %}">ガジェット</a>
+    <a href="{{ '/category/outdoor/' | relative_url }}" class="nav-link {% if page.category == 'outdoor' %}active{% endif %}">アウトドア</a>
+    <a href="{{ '/category/daily/' | relative_url }}" class="nav-link {% if page.category == 'daily' %}active{% endif %}">日用品</a>
+    <a href="{{ '/category/wear/' | relative_url }}" class="nav-link {% if page.category == 'wear' %}active{% endif %}">ウェア・アパレル</a>
+    <a href="{{ '/category/kitchen/' | relative_url }}" class="nav-link {% if page.category == 'kitchen' %}active{% endif %}">キッチン</a>
+    <a href="{{ '/category/travel/' | relative_url }}" class="nav-link {% if page.category == 'travel' %}active{% endif %}">トラベル</a>
+    <a href="{{ '/picks/' | relative_url }}" class="nav-link">今週のPICK <span class="nav-badge">NEW</span></a>
+  </nav>
+</header>
+
+<!-- ティッカー -->
+<div class="ticker">
+  <div class="ticker-label">TRENDING</div>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      {% assign recent = site.posts | limit: 7 %}
+      {% for post in recent %}
+        <span>{{ post.title }}</span>
+      {% endfor %}
+      {% for post in recent %}
+        <span>{{ post.title }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
