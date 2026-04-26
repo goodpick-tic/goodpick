@@ -1,0 +1,57 @@
+<!-- ブランドストリップ -->
+<div class="brand-strip">
+  <div class="brand-strip-inner">
+    <div class="brand-strip-label">Covered Brands</div>
+    <div class="brand-logos">
+      <span class="brand-logo-item">Sony</span>
+      <span class="brand-logo-item">Apple</span>
+      <span class="brand-logo-item">Arc'teryx</span>
+      <span class="brand-logo-item">Patagonia</span>
+      <span class="brand-logo-item">STANLEY</span>
+      <span class="brand-logo-item">Anker</span>
+      <span class="brand-logo-item">Snow Peak</span>
+      <span class="brand-logo-item">MUJI</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="{{ '/' | relative_url }}" class="logo-text">GOOD<span>PICK</span></a>
+      <p>良い声を、届ける。<br>日用品・ガジェット・アウトドアブランドの良質なレビューをタイムリーに掲載。あなたの購買の背中を押す1記事を。</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Categories</div>
+      <a href="{{ '/category/gadget/' | relative_url }}">ガジェット</a>
+      <a href="{{ '/category/outdoor/' | relative_url }}">アウトドア</a>
+      <a href="{{ '/category/daily/' | relative_url }}">日用品・生活雑貨</a>
+      <a href="{{ '/category/wear/' | relative_url }}">ウェア・アパレル</a>
+      <a href="{{ '/category/kitchen/' | relative_url }}">キッチン</a>
+      <a href="{{ '/category/travel/' | relative_url }}">トラベル</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Features</div>
+      <a href="{{ '/picks/' | relative_url }}">Editor's Pick</a>
+      <a href="{{ '/ranking/' | relative_url }}">週間ランキング</a>
+      <a href="{{ '/seasonal/' | relative_url }}">季節の特集</a>
+      <a href="{{ '/compare/' | relative_url }}">比較レビュー</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">About</div>
+      <a href="{{ '/about/' | relative_url }}">GOODPICKについて</a>
+      <a href="{{ '/policy/' | relative_url }}">編集方針</a>
+      <a href="{{ '/contact/' | relative_url }}">お問い合わせ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© {{ site.time | date: '%Y' }} GOODPICK. All rights reserved.</div>
+    <div class="footer-policy">
+      <a href="{{ '/privacy/' | relative_url }}">プライバシーポリシー</a>
+      <a href="{{ '/disclaimer/' | relative_url }}">免責事項</a>
+      <a href="{{ '/advertising/' | relative_url }}">広告掲載について</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑</a>
