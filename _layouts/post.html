@@ -1,0 +1,225 @@
+---
+layout: default
+---
+
+<!-- パンくず -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="{{ '/' | relative_url }}">TOP</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="{{ '/category/' | append: page.category | append: '/' | relative_url }}">{{ page.category_label | default: page.category }}</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>{{ page.title | truncate: 30 }}</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="article-layout">
+
+    <!-- 記事本文 -->
+    <article>
+
+      <!-- 記事ヘッダー -->
+      <div class="article-tags">
+        <span class="article-cat-badge bg-{{ page.category }}">{{ page.category_label | default: page.category }}</span>
+        {% for tag in page.tags %}
+          <span class="article-tag-pill"># {{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <h1 class="article-title">{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <p class="article-subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <div class="article-meta">
+        <div class="meta-author">
+          <div class="author-avatar">{{ page.author | default: site.author.name | slice: 0 }}</div>
+          <div>
+            <div class="author-name">{{ page.author | default: site.author.name }}</div>
+            <div style="font-size:0.68rem;color:#bbb;">{{ page.author_role | default: "Editor" }}</div>
+          </div>
+        </div>
+        <span>{{ page.date | date: "%Y年%m月%d日" }}</span>
+        <span>読了目安：約{{ content | number_of_words | divided_by: 400 | plus: 3 }}分</span>
+        {% if page.editor_pick %}
+          <span class="article-editor-pick">★ Editor's Pick</span>
+        {% endif %}
+      </div>
+
+      <!-- ヒーロー画像 -->
+      <div class="article-hero-img">
+        {% if page.image %}
+          <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+        {% else %}
+          <div style="width:100%;height:100%;background:linear-gradient(135deg,#141e30,#243b55);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15);font-size:0.8rem;letter-spacing:0.1em;">{{ page.brand | upcase }}</div>
+        {% endif %}
+      </div>
+      {% if page.image_caption %}
+        <div class="article-hero-caption">{{ page.image_caption }}</div>
+      {% endif %}
+
+      <!-- 記事本文 -->
+      <div class="article-body">
+        {{ content }}
+      </div>
+
+      <!-- 評価ブロック -->
+      {% if page.rating %}
+      <div class="rating-block">
+        <div class="rating-block-title">🎯 GOODPICK 総合評価</div>
+        <div class="overall-score">
+          <div>
+            <div class="score-big">{{ page.rating }}</div>
+            <div style="font-size:0.68rem;color:#999;margin-top:2px;">/ 5.0</div>
+          </div>
+          <div>
+            <div class="score-stars">
+              {% assign r = page.rating | round %}
+              {% for i in (1..5) %}{% if i <= r %}★{% else %}☆{% endif %}{% endfor %}
+            </div>
+            {% if page.verdict %}
+              <div class="score-verdict">{{ page.verdict }}</div>
+            {% endif %}
+          </div>
+        </div>
+        {% if page.ratings %}
+        <div class="rating-bars">
+          {% for item in page.ratings %}
+          <div class="rating-row">
+            <div class="rating-label">{{ item.label }}</div>
+            <div class="rating-track">
+              <div class="rating-fill" style="width: {{ item.score | times: 20 }}%;"></div>
+            </div>
+            <div class="rating-score">{{ item.score }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- 購入情報 -->
+      {% if page.price %}
+      <div class="buy-section">
+        <div class="buy-label">🛒 購入情報</div>
+        <div class="buy-product">{{ page.brand }} {{ page.product_name | default: page.title }}</div>
+        <div class="buy-price">{{ page.price }} <small>税込・参考価格（{{ page.date | date: "%Y年%m月" }}現在）</small></div>
+        <div class="buy-buttons">
+          {% if page.buy_amazon %}<a href="{{ page.buy_amazon }}" class="buy-btn buy-btn-primary" target="_blank" rel="noopener sponsored">Amazonで見る</a>{% endif %}
+          {% if page.buy_rakuten %}<a href="{{ page.buy_rakuten }}" class="buy-btn buy-btn-secondary" target="_blank" rel="noopener sponsored">楽天市場で見る</a>{% endif %}
+          {% if page.buy_official %}<a href="{{ page.buy_official }}" class="buy-btn buy-btn-secondary" target="_blank" rel="noopener">公式サイト</a>{% endif %}
+        </div>
+        <div class="buy-note">※ 価格は記事執筆時点の参考価格です。変動する場合があります。当サイトはアフィリエイトリンクを使用しています。</div>
+      </div>
+      {% endif %}
+
+      <!-- シェアボタン -->
+      <div class="share-section">
+        <span class="share-label">Share</span>
+        <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-x">𝕏 ポスト</a>
+        <a href="https://line.me/R/msg/text/?{{ page.title | url_encode }}%0A{{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-line">LINE</a>
+        <button class="share-btn share-copy" onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓ コピーしました';">🔗 URLコピー</button>
+      </div>
+
+      <!-- 著者ボックス -->
+      <div class="author-box">
+        <div class="author-box-avatar">{{ page.author | default: site.author.name | slice: 0 }}</div>
+        <div>
+          <div class="author-box-name">{{ page.author | default: site.author.name }}</div>
+          <div class="author-box-role">{{ page.author_role | default: "Lifestyle & Gear Editor · GOODPICK" }}</div>
+          <div class="author-box-bio">{{ page.author_bio | default: site.author.bio }}</div>
+        </div>
+      </div>
+
+      <!-- 関連記事 -->
+      {% assign related = site.posts | where: "category", page.category | limit: 4 %}
+      {% assign related_filtered = "" | split: "" %}
+      {% for post in related %}
+        {% unless post.url == page.url %}
+          {% assign related_filtered = related_filtered | push: post %}
+        {% endunless %}
+      {% endfor %}
+      {% assign related_show = related_filtered | limit: 3 %}
+
+      {% if related_show.size > 0 %}
+      <div class="related-section">
+        <div class="related-title">Related Articles</div>
+        <div class="related-grid">
+          {% for post in related_show %}
+          <a href="{{ post.url | relative_url }}" class="related-card">
+            <div class="related-card-thumb">
+              {% if post.image %}
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+              {% else %}
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e50,#4ca1af);"></div>
+              {% endif %}
+            </div>
+            <div class="related-card-body">
+              <div class="related-card-cat text-{{ post.category }}">{{ post.category_label | default: post.category }}</div>
+              <div class="related-card-title">{{ post.title | truncate: 45 }}</div>
+              {% if post.rating %}<div class="related-card-rating">★ {{ post.rating }}</div>{% endif %}
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </article>
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <div class="toc-box" id="toc-box">
+        <div class="toc-title">📋 目次</div>
+        <ul class="toc-list" id="toc-list"></ul>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">🆕 New Articles</div>
+        {% for post in site.posts limit: 5 %}
+          {% unless post.url == page.url %}
+          <a href="{{ post.url | relative_url }}" class="sidebar-card">
+            <div class="sidebar-card-thumb">
+              {% if post.image %}
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+              {% else %}
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e50,#4ca1af);"></div>
+              {% endif %}
+            </div>
+            <div class="sidebar-card-body">
+              <div class="sidebar-card-cat text-{{ post.category }}">{{ post.category_label | default: post.category }}</div>
+              <div class="sidebar-card-title">{{ post.title | truncate: 36 }}</div>
+              <div class="sidebar-card-date">{{ post.date | date: "%Y.%m.%d" }}</div>
+            </div>
+          </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+      <div class="newsletter-box">
+        <div class="newsletter-title">📬 週刊GOODPICK</div>
+        <div class="newsletter-desc">毎週金曜、ベスト記事をメールでお届け。</div>
+        <input type="email" class="newsletter-input" placeholder="メールアドレス">
+        <button class="newsletter-btn">登録する</button>
+        <div class="newsletter-note">スパムなし。いつでも解除可能。</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function() {
+  var headings = document.querySelectorAll('.article-body h2');
+  var toc = document.getElementById('toc-list');
+  if (!toc || headings.length === 0) {
+    document.getElementById('toc-box').style.display = 'none';
+    return;
+  }
+  headings.forEach(function(h, i) {
+    var id = 'section-' + (i + 1);
+    h.id = id;
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#' + id + '"><span class="toc-num">0' + (i+1) + '</span>' + h.textContent + '</a>';
+    toc.appendChild(li);
+  });
+})();
+</script>
