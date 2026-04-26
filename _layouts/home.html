@@ -1,0 +1,178 @@
+---
+layout: default
+---
+
+{% assign featured = site.posts.first %}
+{% assign sub_posts = site.posts | offset: 1 | limit: 3 %}
+
+<!-- ヒーロー -->
+<section class="hero">
+  <a href="{{ featured.url | relative_url }}" class="hero-main">
+    {% if featured.image %}
+      <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" class="hero-main-img">
+    {% else %}
+      <div class="hero-main-img" style="background: linear-gradient(135deg,#141e30,#243b55); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.15); font-size:0.8rem; letter-spacing:0.1em;">{{ featured.brand | default: "GOODPICK" }}</div>
+    {% endif %}
+    <div class="hero-overlay"></div>
+    <div class="hero-body">
+      <span class="hero-cat">{{ featured.category_label | default: featured.category }}</span>
+      <h1 class="hero-title">{{ featured.title }}</h1>
+      <div class="hero-meta">{{ featured.category }} &nbsp;·&nbsp; {{ featured.date | date: "%Y.%m.%d" }} &nbsp;·&nbsp; by {{ featured.author | default: site.author.name }}</div>
+    </div>
+  </a>
+
+  <div class="hero-sub">
+    {% for post in sub_posts %}
+    <a href="{{ post.url | relative_url }}" class="hero-sub-item">
+      <div class="hero-sub-thumb">
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+        {% else %}
+          <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e50,#4ca1af);"></div>
+        {% endif %}
+      </div>
+      <div class="hero-sub-body">
+        <div class="sub-cat text-{{ post.category }}">{{ post.category_label | default: post.category }}</div>
+        <div class="hero-sub-title">{{ post.title | truncate: 40 }}</div>
+        <div class="hero-sub-date">{{ post.date | date: "%Y.%m.%d" }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- メインコンテンツ -->
+<div class="container">
+
+  <!-- 季節バナー -->
+  <div class="seasonal-banner mt-48">
+    <div class="seasonal-text">
+      <div class="seasonal-eyebrow">🌿 Spring 2026 Feature</div>
+      <div class="seasonal-title">春山・GWキャンプに向けて<br>今買っておきたいギア</div>
+      <div class="seasonal-desc">ゴールデンウィーク前に揃えたいアウトドアギアを、編集部が厳選。テント・ウェア・調理器具まで網羅。</div>
+    </div>
+    <a href="{{ '/seasonal/' | relative_url }}" class="seasonal-cta">特集を読む →</a>
+  </div>
+
+  <!-- Editor's Pick -->
+  {% assign picks = site.posts | where: "editor_pick", true | limit: 3 %}
+  {% if picks.size > 0 %}
+  <div class="mt-48">
+    <div class="section-header">
+      <div class="section-title"><span class="dot">◆</span>Editor's Pick</div>
+      <a href="{{ '/picks/' | relative_url }}" class="section-more">すべて見る →</a>
+    </div>
+    {% assign pick_featured = picks.first %}
+    <a href="{{ pick_featured.url | relative_url }}" class="card-wide">
+      <div class="card-thumb">
+        {% if pick_featured.image %}
+          <img src="{{ pick_featured.image | relative_url }}" alt="{{ pick_featured.title }}">
+        {% else %}
+          <div style="width:100%;height:100%;background:linear-gradient(135deg,#141e30,#243b55);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15);font-size:0.75rem;">{{ pick_featured.brand }}</div>
+        {% endif %}
+        <span class="card-cat bg-{{ pick_featured.category }}">{{ pick_featured.category_label | default: pick_featured.category }}</span>
+      </div>
+      <div class="card-body">
+        <div class="editor-pick-badge">★ 今週のイチ押し</div>
+        <div class="card-brand">{{ pick_featured.brand }}</div>
+        <div class="card-title">{{ pick_featured.title }}</div>
+        <div class="card-excerpt">{{ pick_featured.excerpt | strip_html | truncate: 120 }}</div>
+        <div class="card-footer">
+          <div class="card-rating"><span class="stars">{% include stars.html rating=pick_featured.rating %}</span> {{ pick_featured.rating }}</div>
+          <span>{{ pick_featured.date | date: "%Y.%m.%d" }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- 最新記事 + サイドバー -->
+  <div class="layout-main">
+    <div>
+      <!-- カテゴリ別セクション -->
+      {% assign categories = "gadget,outdoor,daily,wear,kitchen,travel" | split: "," %}
+      {% assign cat_labels = "ガジェット,アウトドア,日用品・生活雑貨,ウェア・アパレル,キッチン,トラベル" | split: "," %}
+
+      {% for cat in categories %}
+        {% assign cat_posts = site.posts | where: "category", cat | limit: 3 %}
+        {% if cat_posts.size > 0 %}
+        <div class="mt-48">
+          <div class="section-header">
+            <div class="section-title"><span class="dot">◆</span>{{ cat_labels[forloop.index0] }}</div>
+            <a href="{{ '/category/' | append: cat | append: '/' | relative_url }}" class="section-more">すべて見る →</a>
+          </div>
+          <div class="article-grid">
+            {% for post in cat_posts %}
+            <a href="{{ post.url | relative_url }}" class="card">
+              <div class="card-thumb">
+                {% if post.image %}
+                  <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+                {% else %}
+                  <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e50,#4ca1af);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15);font-size:0.7rem;">{{ post.brand }}</div>
+                {% endif %}
+                <span class="card-cat bg-{{ post.category }}">{{ post.category_label | default: post.category }}</span>
+                {% if post.is_new %}<span class="card-new">NEW</span>{% endif %}
+              </div>
+              <div class="card-body">
+                <div class="card-brand">{{ post.brand }}</div>
+                <div class="card-title">{{ post.title }}</div>
+                <div class="card-excerpt">{{ post.excerpt | strip_html | truncate: 80 }}</div>
+                <div class="card-footer">
+                  <div class="card-rating"><span class="stars">{% assign r = post.rating | round %}{% for i in (1..5) %}{% if i <= r %}★{% else %}☆{% endif %}{% endfor %}</span> {{ post.rating }}</div>
+                  <span>{{ post.date | date: "%Y.%m.%d" }}</span>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      <!-- タグクラウド -->
+      <div class="mt-48">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:10px;">Popular Tags</div>
+        <div class="tag-cloud">
+          {% assign all_tags = site.posts | map: "tags" | join: "," | split: "," | uniq %}
+          {% for tag in all_tags limit: 16 %}
+            <a href="{{ '/tag/' | append: tag | relative_url }}" class="tag-pill"># {{ tag }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <!-- 最新記事 -->
+      <div class="sidebar-block">
+        <div class="sidebar-title">🆕 New Articles</div>
+        {% for post in site.posts limit: 6 %}
+        <a href="{{ post.url | relative_url }}" class="sidebar-card">
+          <div class="sidebar-card-thumb">
+            {% if post.image %}
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+            {% else %}
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,#2c3e50,#4ca1af);"></div>
+            {% endif %}
+          </div>
+          <div class="sidebar-card-body">
+            <div class="sidebar-card-cat text-{{ post.category }}">{{ post.category_label | default: post.category }}</div>
+            <div class="sidebar-card-title">{{ post.title | truncate: 40 }}</div>
+            <div class="sidebar-card-date">{{ post.date | date: "%Y.%m.%d" }}</div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+      <!-- ニュースレター -->
+      <div class="newsletter-box">
+        <div class="newsletter-title">📬 週刊GOODPICK</div>
+        <div class="newsletter-desc">毎週金曜、今週のベスト記事とおすすめ商品をメールでお届け。</div>
+        <input type="email" class="newsletter-input" placeholder="メールアドレスを入力">
+        <button class="newsletter-btn">無料で登録する</button>
+        <div class="newsletter-note">スパムなし。いつでも解除可能。</div>
+      </div>
+    </aside>
+  </div>
+
+</div>
