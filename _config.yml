@@ -8,6 +8,7 @@ author:
   bio: "Lifestyle & Gear Editor. 使ってわかることだけを書く。"
 
 # ビルド設定
+future: true
 markdown: kramdown
 highlighter: rouge
 permalink: /articles/:year/:month/:day/:title/
