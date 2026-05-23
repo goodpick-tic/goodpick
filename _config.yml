@@ -3,54 +3,39 @@ description: "良い声を、届ける。日用品・ガジェット・アウト
 url: ""
 baseurl: "/goodpick"
 
+
 author:
   name: 村田大嘉
-  bio: "Lifestyle & Gear Editor. 使ってわかることだけを書く。"
+    bio: "Lifestyle & Gear Editor. 使ってわかることだけを書く。"
 
-# ビルド設定
-future: true
-markdown: kramdown
-highlighter: rouge
-permalink: /articles/:year/:month/:day/:title/
 
-# プラグイン（GitHub Pages対応）
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
+    # ビルド設定
+    future: true
+    markdown: kramdown
+    highlighter: rouge
+    permalink: /articles/:year/:month/:day/:title/
 
-# ページネーション（1ページあたりの記事数）
-paginate: 9
-paginate_path: "/page/:num/"
+    # プラグイン（GitHub Pages対応）
+    plugins:
+      - jekyll-feed
+        - jekyll-seo-tag
+          - jekyll-sitemap
+            - jekyll-paginate
 
-# カテゴリ設定
-categories:
-  gadget:
-    label: ガジェット
-    color: "#3a7bd5"
-  outdoor:
-    label: アウトドア
-    color: "#4caf50"
-  daily:
-    label: 日用品・生活雑貨
-    color: "#9c6fb5"
-  wear:
-    label: ウェア・アパレル
-    color: "#e67e22"
-  kitchen:
-    label: キッチン
-    color: "#e84b3a"
-  travel:
-    label: トラベル
-    color: "#00bcd4"
+            # ページネーション（1ページあたりの記事数）
+            paginate: 10
+            paginate_path: "/page/:num/"
 
-# 除外ファイル
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - SETUP.md
-  - node_modules
-  - .git
-# build trigger
+            # カテゴリ設定
+            categories:
+              gadget:
+                  label: ガジェット
+                      color: "#3a7bd5"
+                        outdoor:
+                            label: アウトドア
+                                color: "#4caf50"
+                                  daily:
+                                      label: 日用品・生活雑貨
+                                          color: "#ff9800"
+
+                                          # rebuild trigger 2026-05-23
